@@ -1,10 +1,44 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function InstanceDetails({ onClickListInstances}: any) {
+function InstanceDetails({ instanceId, onClickListInstances}: any) {
+  interface InstanceDetailsObject {
+    id: number,
+    name: string,
+    user: string,
+    virtual_host: string,
+    password: string,
+    hostname: string
+  }
+  const [instanceDetails, setInstanceDetails] = useState<Partial<InstanceDetailsObject>>({});
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        await axios.get('http://localhost:3000/instances/' + instanceId)
+        .then(res => {
+          const instData = res.data;
+          setInstanceDetails(instData);
+        })
+
+      } catch (err) {
+        console.error("Error getting instance details:", err)
+      }
+
+    }
+    fetchData();
+  }, [instanceId]);
 
   return (
     <div>
       <h1>Instance Details</h1>
+      <p>Instance Id: {instanceDetails.id}</p>
+      <p>Instance Name: {instanceDetails.name}</p>
+      <p>User: {instanceDetails.user}</p>
+      <p>Virtual Host: {instanceDetails.virtual_host}</p>
+      <p>Password: {instanceDetails.password}</p>
+      <p>Hostname: {instanceDetails.hostname}</p>
       <button onClick={onClickListInstances}>List Instances</button>
     </div>
   );

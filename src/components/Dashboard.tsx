@@ -6,6 +6,7 @@ import CreateInstance from './CreateInstance';
 
 function Dashboard() {
   const [componentToShow, setComponentToShow] = useState("LIST_INSTANCES");
+  const [instanceId, setInstanceId] = useState<number>(0);
 
   function handleClick() {
     setComponentToShow("CREATE_INSTANCE")
@@ -15,8 +16,9 @@ function Dashboard() {
     setComponentToShow("LIST_INSTANCES")
   }
 
-  function handleClickInstanceDetails() {
+  function handleClickInstanceDetails(id: number) {
     setComponentToShow("INSTANCE_DETAILS")
+    setInstanceId(id)
   }
 
   return (
@@ -30,7 +32,12 @@ function Dashboard() {
         </>
       }
 
-      {componentToShow === "INSTANCE_DETAILS" && <InstanceDetails onClickListInstances={handleListInstances} />}
+      {componentToShow === "INSTANCE_DETAILS" &&
+        <InstanceDetails
+          onClickListInstances={handleListInstances}
+          instanceId={instanceId}
+        />
+      }
 
       {componentToShow === "CREATE_INSTANCE" && <CreateInstance onClickListInstances={handleListInstances} />}
     </div>

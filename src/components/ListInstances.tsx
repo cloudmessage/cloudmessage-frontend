@@ -20,7 +20,7 @@ function ListInstances({ onClickInstanceDetails}: any) {
   }, []);
 
   const instList = instances.map((instance) => {
-    return <li key={instance.id}><button onClick={onClickInstanceDetails}>{instance.name}</button></li>
+    return <li key={instance.id}><button onClick={() => onClickInstanceDetails(instance.id)}>{instance.name}</button></li>
   })
   return (
     <>
