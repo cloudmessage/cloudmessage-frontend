@@ -12,7 +12,7 @@ function CreateInstance({ onClickListInstances}: any) {
         instanceName: instName
       })
       alert("instance created");
-      // TODO: navigate to list instances
+      onClickListInstances()
     } catch(err) {
       console.error("Error on form submit: ", err)
       throw err
