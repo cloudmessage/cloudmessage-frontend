@@ -1,11 +1,11 @@
 import React from 'react';
-import ListInstances from '../components/ListInstances';
+import ListInstances from './ListInstances';
 
 function Dashboard() {
 
   return (
     <div className="dashboard">
-      <h1>CloudMessage Dashboard Component</h1>
+      <h1>CloudMessage Dashboard</h1>
       <ListInstances />
     </div>
   );

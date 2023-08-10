@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ListInstances() {
-  // fetch data
-  // set it to state
-  // display
 
   interface InstanceObject {
     id: number,
