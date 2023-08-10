@@ -4,6 +4,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import App from './App';
 import LoginButton from './components/login';
 import LogoutButton from './components/logout';
+import Profile from './components/profile';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,6 +20,10 @@ root.render(
     >
       <LoginButton />
       <LogoutButton />
+      <hr />
+      <h3>Profile Information</h3>
+      <Profile></Profile>
+      <hr />
       <App />
     </Auth0Provider>
   </React.StrictMode>
