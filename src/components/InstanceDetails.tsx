@@ -1,10 +1,11 @@
 import React from 'react';
 
-function InstanceDetails() {
+function InstanceDetails({ onClickListInstances}: any) {
 
   return (
     <div>
       <h1>Instance Details</h1>
+      <button onClick={onClickListInstances}>List Instances</button>
     </div>
   );
 }

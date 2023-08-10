@@ -15,6 +15,10 @@ function Dashboard() {
     setComponentToShow("LIST_INSTANCES")
   }
 
+  function handleClickInstanceDetails() {
+    setComponentToShow("INSTANCE_DETAILS")
+  }
+
   return (
     <div className="dashboard">
       <h1>CloudMessage Dashboard</h1>
@@ -22,13 +26,13 @@ function Dashboard() {
       {componentToShow === "LIST_INSTANCES" &&
         <>
           <button onClick={handleClick}>Create Instance</button>
-          <ListInstances />
+          <ListInstances onClickInstanceDetails={handleClickInstanceDetails} />
         </>
       }
 
-      {componentToShow === "INSTANCE_DETAILS" && <InstanceDetails />}
+      {componentToShow === "INSTANCE_DETAILS" && <InstanceDetails onClickListInstances={handleListInstances} />}
 
-      {componentToShow === "CREATE_INSTANCE" && <CreateInstance onClickListInstances={handleListInstances}/>}
+      {componentToShow === "CREATE_INSTANCE" && <CreateInstance onClickListInstances={handleListInstances} />}
     </div>
   );
 }

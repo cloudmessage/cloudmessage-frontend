@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ListInstances() {
+function ListInstances({ onClickInstanceDetails}: any) {
 
   interface InstanceObject {
     id: number,
@@ -20,7 +20,7 @@ function ListInstances() {
   }, []);
 
   const instList = instances.map((instance) => {
-    return <li key={instance.id}>{instance.name}</li>
+    return <li key={instance.id}><button onClick={onClickInstanceDetails}>{instance.name}</button></li>
   })
   return (
     <>
