@@ -8,8 +8,8 @@ function CreateInstance({ onClickListInstances}: any) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/instances', {
-        name: instName
+      await axios.post('http://localhost:3000/instances', {
+        instanceName: instName
       })
       alert("instance created");
       // TODO: navigate to list instances
