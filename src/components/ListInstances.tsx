@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function ListInstances() {
   // fetch data
@@ -13,16 +14,12 @@ function ListInstances() {
   const [instances, setInstances] = useState<Array<InstanceObject>>([])
 
   useEffect(() => {
-    setInstances([
-      {
-        id: 1,
-        name: 'inst-1'
-      },
-      {
-        id: 2,
-        name: 'inst-2'
-      }
-    ])
+    axios.get('http://localhost:3000/instances')
+      .then(res => {
+        const instData = res.data;
+        setInstances(instData);
+      })
+      .catch(err => { console.log(err); throw err })
   }, []);
 
   const instList = instances.map((instance) => {
