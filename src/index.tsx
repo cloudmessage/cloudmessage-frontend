@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Auth0Provider } from '@auth0/auth0-react';
 import App from './App';
+import LoginButton from './components/login';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,9 +13,10 @@ root.render(
       domain="cloudmessage.us.auth0.com"
       clientId="irjJRLxV407Z5xCE35ZxmjaUAshzxKi0"
       authorizationParams={{
-        redirect_uri: 'http://localhost:3000'
+        redirect_uri: 'http://localhost:3006'
       }}
     >
+      <LoginButton />
       <App />
     </Auth0Provider>
   </React.StrictMode>
