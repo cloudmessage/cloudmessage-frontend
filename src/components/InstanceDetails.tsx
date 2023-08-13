@@ -45,6 +45,7 @@ function InstanceDetails({ instanceId, onClickListInstances}: any) {
       <p>Virtual Host: {instanceDetails.virtual_host}</p>
       <p>Password: {instanceDetails.password}</p>
       <p>Hostname: {instanceDetails.hostname}</p>
+      <p>URL: {`amqp://${instanceDetails.user}:${instanceDetails.password}@${instanceDetails.hostname}/${instanceDetails.virtual_host}`}</p>
       <button onClick={onClickListInstances}>List Instances</button>
     </div>
   );
