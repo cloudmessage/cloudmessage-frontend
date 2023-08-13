@@ -1,8 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function ListInstances({ onClickInstanceDetails}: any) {
+
+  const { getAccessTokenSilently } = useAuth0();
 
   interface InstanceObject {
     id: number,
@@ -11,12 +14,18 @@ function ListInstances({ onClickInstanceDetails}: any) {
   const [instances, setInstances] = useState<Array<InstanceObject>>([])
 
   useEffect(() => {
-    axios.get('http://localhost:3000/instances')
-      .then(res => {
-        const instData = res.data;
-        setInstances(instData);
-      })
-      .catch(err => { console.log(err); throw err })
+    async function fetchData() {
+      const token = await getAccessTokenSilently();
+      axios.get('http://localhost:3000/instances', {
+        headers: { 'Authorization': `Bearer ${token}`}
+        })
+        .then(res => {
+            const instData = res.data;
+            setInstances(instData);
+        })
+        .catch(err => { console.log(err); throw err })
+    }
+    fetchData();
   }, []);
 
   const instList = instances.map((instance) => {

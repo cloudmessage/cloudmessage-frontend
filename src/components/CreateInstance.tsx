@@ -1,16 +1,24 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function CreateInstance({ onClickListInstances}: any) {
   const [instName, setInstName] = useState<string>("");
 
+  const { getAccessTokenSilently } = useAuth0();
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
+      const token = await getAccessTokenSilently();
+      console.log(token)
       await axios.post('http://localhost:3000/instances', {
         instanceName: instName
-      })
+      }, {
+        headers: { 'Authorization': `Bearer ${token}`}
+      }
+      )
       alert("instance created");
       onClickListInstances()
     } catch(err) {

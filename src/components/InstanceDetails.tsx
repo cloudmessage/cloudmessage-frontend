@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function InstanceDetails({ instanceId, onClickListInstances}: any) {
   interface InstanceDetailsObject {
@@ -13,10 +14,15 @@ function InstanceDetails({ instanceId, onClickListInstances}: any) {
   }
   const [instanceDetails, setInstanceDetails] = useState<Partial<InstanceDetailsObject>>({});
 
+  const { getAccessTokenSilently } = useAuth0();
+
   useEffect(() => {
     async function fetchData() {
       try {
-        await axios.get('http://localhost:3000/instances/' + instanceId)
+        const token = await getAccessTokenSilently();
+        await axios.get('http://localhost:3000/instances/' + instanceId, {
+          headers: { 'Authorization': `Bearer ${token}`}
+        })
         .then(res => {
           const instData = res.data;
           setInstanceDetails(instData);
