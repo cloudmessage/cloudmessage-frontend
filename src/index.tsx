@@ -12,7 +12,8 @@ root.render(
       domain="cloudmessage.us.auth0.com"
       clientId="irjJRLxV407Z5xCE35ZxmjaUAshzxKi0"
       authorizationParams={{
-        redirect_uri: 'http://localhost:3006'
+        redirect_uri: 'http://localhost:3006',
+        audience: "https://cloudmessage.com"
       }}
     >
       <App />
