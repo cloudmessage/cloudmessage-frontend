@@ -34,6 +34,7 @@ function InstanceDetails({ instanceId, onClickListInstances}: any) {
 
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [instanceId]);
 
   return (

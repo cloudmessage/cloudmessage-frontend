@@ -26,6 +26,7 @@ function ListInstances({ onClickInstanceDetails}: any) {
         .catch(err => { console.log(err); throw err })
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const instList = instances.map((instance) => {

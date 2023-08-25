@@ -12,7 +12,6 @@ function CreateInstance({ onClickListInstances}: any) {
     e.preventDefault();
     try {
       const token = await getAccessTokenSilently();
-      console.log(token)
       await axios.post('http://localhost:3000/instances', {
         instanceName: instName
       }, {
