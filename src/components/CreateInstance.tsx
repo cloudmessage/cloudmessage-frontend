@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
+import { CLOUDMESSAGE_API_URL } from '../constants';
 
 function CreateInstance({ onClickListInstances}: any) {
   const [instName, setInstName] = useState<string>("");
@@ -12,7 +13,7 @@ function CreateInstance({ onClickListInstances}: any) {
     e.preventDefault();
     try {
       const token = await getAccessTokenSilently();
-      await axios.post('http://localhost:3000/instances', {
+      await axios.post(`${CLOUDMESSAGE_API_URL}/instances`, {
         instanceName: instName
       }, {
         headers: { 'Authorization': `Bearer ${token}`}
