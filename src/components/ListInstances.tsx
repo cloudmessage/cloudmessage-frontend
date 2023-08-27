@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
+import { CLOUDMESSAGE_API_URL } from '../constants';
 
 function ListInstances({ onClickInstanceDetails}: any) {
 
@@ -16,7 +17,7 @@ function ListInstances({ onClickInstanceDetails}: any) {
   useEffect(() => {
     async function fetchData() {
       const token = await getAccessTokenSilently();
-      axios.get('http://localhost:3000/instances', {
+      axios.get(`${CLOUDMESSAGE_API_URL}/instances`, {
         headers: { 'Authorization': `Bearer ${token}`}
         })
         .then(res => {
