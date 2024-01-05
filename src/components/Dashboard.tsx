@@ -28,7 +28,7 @@ function Dashboard() {
 
         <>
           <Link to="/createinstance">Create Instance</Link>
-          <ListInstances onClickInstanceDetails={handleClickInstanceDetails} />
+          <ListInstances />
         </>
 
     </div>

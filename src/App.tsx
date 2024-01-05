@@ -11,6 +11,8 @@ import LoginButton from './components/login';
 import LogoutButton from './components/logout';
 import Profile from './components/profile';
 import CreateInstance from './components/CreateInstance';
+import ListInstances from './components/ListInstances';
+import InstanceDetails from './components/InstanceDetails';
 import PageNotFound from './components/PageNotFound';
 
 function App() {
@@ -37,6 +39,7 @@ function App() {
         <Route path="/" element={<Dashboard />}/>
         <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="/createinstance" element={<CreateInstance />}/>
+        <Route path="/instancedetails/:instanceId" element={<InstanceDetails />}/>
         <Route path="*" element={<PageNotFound />}/>
       </Routes>
       </div>
