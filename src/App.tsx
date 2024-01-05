@@ -11,6 +11,7 @@ import LoginButton from './components/login';
 import LogoutButton from './components/logout';
 import Profile from './components/profile';
 import CreateInstance from './components/CreateInstance';
+import PageNotFound from './components/PageNotFound';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/" element={<Dashboard />}/>
         <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="/createinstance" element={<CreateInstance />}/>
+        <Route path="*" element={<PageNotFound />}/>
       </Routes>
       </div>
     </Router>
