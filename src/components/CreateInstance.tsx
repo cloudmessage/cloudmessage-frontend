@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { CLOUDMESSAGE_API_URL } from '../constants';
 
-function CreateInstance({ onClickListInstances}: any) {
+function CreateInstance() {
   const [instName, setInstName] = useState<string>("");
 
   const { getAccessTokenSilently } = useAuth0();
@@ -20,7 +20,6 @@ function CreateInstance({ onClickListInstances}: any) {
       }
       )
       alert("instance created");
-      onClickListInstances()
     } catch(err) {
       console.error("Error on form submit: ", err)
       throw err
@@ -46,14 +45,6 @@ function CreateInstance({ onClickListInstances}: any) {
         </label>
         <button type="submit">Submit</button>
       </form>
-
-      <button
-        style={{marginTop: "100px"}}
-        onClick={onClickListInstances}
-      >
-        List Instances
-      </button>
-
     </>
   );
 }
