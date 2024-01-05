@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ListInstances from './ListInstances';
 import InstanceDetails from './InstanceDetails';
 import CreateInstance from './CreateInstance';
@@ -25,21 +26,11 @@ function Dashboard() {
     <div className="dashboard">
       <h1>CloudMessage Dashboard</h1>
 
-      {componentToShow === "LIST_INSTANCES" &&
         <>
-          <button onClick={handleClick}>Create Instance</button>
+          <Link to="/createinstance">Create Instance</Link>
           <ListInstances onClickInstanceDetails={handleClickInstanceDetails} />
         </>
-      }
 
-      {componentToShow === "INSTANCE_DETAILS" &&
-        <InstanceDetails
-          onClickListInstances={handleListInstances}
-          instanceId={instanceId}
-        />
-      }
-
-      {componentToShow === "CREATE_INSTANCE" && <CreateInstance onClickListInstances={handleListInstances} />}
     </div>
   );
 }
