@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { CLOUDMESSAGE_API_URL } from '../constants';
 
-function ListInstances({ onClickInstanceDetails}: any) {
+function ListInstances() {
 
   const { getAccessTokenSilently } = useAuth0();
 
@@ -31,8 +32,14 @@ function ListInstances({ onClickInstanceDetails}: any) {
   }, []);
 
   const instList = instances.map((instance) => {
-    return <li key={instance.id}><button onClick={() => onClickInstanceDetails(instance.id)}>{instance.name}</button></li>
-  })
+    return (
+      <li key={instance.id}>
+        <span>{instance.name}</span>
+        <Link to={`/instancedetails/${instance.id}`}>Details</Link>
+      </li>
+    )
+  });
+
   return (
     <>
       <h2>Instances</h2>

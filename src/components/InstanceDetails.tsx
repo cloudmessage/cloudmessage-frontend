@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { CLOUDMESSAGE_API_URL } from '../constants';
 
-function InstanceDetails({ instanceId, onClickListInstances}: any) {
+function InstanceDetails() {
   interface InstanceDetailsObject {
     id: number,
     name: string,
@@ -13,6 +14,7 @@ function InstanceDetails({ instanceId, onClickListInstances}: any) {
     password: string,
     hostname: string
   }
+  const { instanceId } = useParams();
   const [instanceDetails, setInstanceDetails] = useState<Partial<InstanceDetailsObject>>({});
 
   const { getAccessTokenSilently } = useAuth0();
@@ -48,7 +50,6 @@ function InstanceDetails({ instanceId, onClickListInstances}: any) {
       <p>Password: {instanceDetails.password}</p>
       <p>Hostname: {instanceDetails.hostname}</p>
       <p>URL: {`amqp://${instanceDetails.user}:${instanceDetails.password}@${instanceDetails.hostname}/${instanceDetails.virtual_host}`}</p>
-      <button onClick={onClickListInstances}>List Instances</button>
     </div>
   );
 }
