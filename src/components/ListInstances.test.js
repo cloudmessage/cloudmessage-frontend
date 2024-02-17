@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import ListInstances from './ListInstances';
+import '@testing-library/jest-dom/extend-expect';
 
 test('renders the ListInstances component', () => {
   render(
       <ListInstances />
   );
 
-  expect(screen.getAllByRole("button", {hidden: true})).toHaveTextContent(/CloudMessage Dashboard/);
+  expect(screen.getByRole("heading")).toHaveTextContent("Instances");
 });
