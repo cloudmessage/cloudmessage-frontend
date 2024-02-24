@@ -1,7 +1,7 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import ListInstances from './ListInstances';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import axios from 'axios';
 
 jest.mock('axios');
@@ -16,10 +16,8 @@ describe('ListInstances', () => {
       {data: instances}
     ));
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    await act(() => {
-      render(<Router><ListInstances /></Router>);
-    });
+    render(<Router><ListInstances /></Router>);
+
     expect(await screen.findByRole("heading")).toHaveTextContent("Instances");
     const listItems = await screen.findAllByRole("listitem");
     expect(listItems).toHaveLength(2);
