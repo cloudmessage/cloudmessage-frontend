@@ -1,31 +1,29 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
+import { MemoryRouter as Router } from 'react-router-dom';
 import ListInstances from './ListInstances';
 import '@testing-library/jest-dom/extend-expect';
+import axios from 'axios';
 
-jest.mock('axios', () => {
-  return {
-    get: () => {
-      return Promise.resolve({
-        data: [
-          {
-            id: 10,
-            name: "item10"
-          },
-          {
-            id: 20,
-            name: "item20"
-          }
-        ]
-      });
-    }
-  }
-});
+jest.mock('axios');
 
-test('renders the ListInstances component', async () => {
+describe('ListInstances', () => {
 
-  await render(<ListInstances />)
+  let instances = [{ id: 10, name: 'inst10'}, {id:20, name: 'inst20'}];
 
-  expect(await screen.findByRole("heading")).toHaveTextContent("Instances");
-  // expect(await screen.findAllByRole("list")).toHaveLength(1);
+  test('renders the ListInstances component', async () => {
+
+    axios.get.mockImplementationOnce(() => Promise.resolve(
+      {data: instances}
+    ));
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(() => {
+      render(<Router><ListInstances /></Router>);
+    });
+    expect(await screen.findByRole("heading")).toHaveTextContent("Instances");
+    const listItems = await screen.findAllByRole("listitem");
+    expect(listItems).toHaveLength(2);
+
+  });
 
 });
