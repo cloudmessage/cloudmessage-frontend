@@ -16,10 +16,8 @@ describe('ListInstances', () => {
       {data: instances}
     ));
 
-    // eslint-disable-next-line testing-library/no-unnecessary-act
-    await act(() => {
-      render(<Router><ListInstances /></Router>);
-    });
+    render(<Router><ListInstances /></Router>);
+
     expect(await screen.findByRole("heading")).toHaveTextContent("Instances");
     const listItems = await screen.findAllByRole("listitem");
     expect(listItems).toHaveLength(2);
