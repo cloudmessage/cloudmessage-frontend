@@ -1,4 +1,4 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import ListInstances from './ListInstances';
 import '@testing-library/jest-dom/extend-expect';
