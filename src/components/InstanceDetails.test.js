@@ -8,7 +8,7 @@ jest.mock('axios');
 
 describe('InstanceDetails', () => {
 
-  let instanceDetails = {
+  let instDetails = {
     id: "10",
     name: "instance-name",
     user: "a-user",
@@ -20,18 +20,20 @@ describe('InstanceDetails', () => {
   test('renders the ListInstances component', async () => {
 
     axios.get.mockImplementationOnce(() => Promise.resolve(
-      {data: instanceDetails}
+      {data: instDetails}
     ));
 
     render(<Router><InstanceDetails /></Router>);
 
     expect(await screen.findByRole("heading")).toHaveTextContent("Instance Details");
-    expect(await screen.findByText(/Instance Id:/)).toHaveTextContent("Instance Id: 10");
-    expect(screen.getByText(/Instance Name:/)).toHaveTextContent("Instance Name: instance-name");
-    expect(screen.getByText(/User:/)).toHaveTextContent("User: a-user");
-    expect(screen.getByText(/Virtual Host:/)).toHaveTextContent("Virtual Host: inst-virtual-host");
-    expect(screen.getByText(/Password:/)).toHaveTextContent("Password: my-password");
-    expect(screen.getByText(/Hostname:/)).toHaveTextContent("Hostname: inst-hostname");
+    expect(await screen.findByText(/Instance Id:/)).toHaveTextContent(`Instance Id: ${instDetails.id}`);
+
+    expect(screen.getByText(/Instance Name:/)).toHaveTextContent(`Instance Name: ${instDetails.name}`);
+    expect(screen.getByText(/User:/)).toHaveTextContent(`User: ${instDetails.user}`);
+    expect(screen.getByText(/Virtual Host:/)).toHaveTextContent(`Virtual Host: ${instDetails.virtual_host}`);
+    expect(screen.getByText(/Password:/)).toHaveTextContent(`Password: ${instDetails.password}`);
+    expect(screen.getByText(/Hostname:/)).toHaveTextContent(`Hostname: ${instDetails.hostname}`);
+
     const expectedURL = "amqp://a-user:my-password@inst-hostname/inst-virtual-host";
     expect(screen.getByText(/URL:/)).toHaveTextContent(`URL: ${expectedURL}`);
   });
