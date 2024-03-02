@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import ListInstances from './ListInstances';
 import '@testing-library/jest-dom';
@@ -21,7 +21,8 @@ describe('ListInstances', () => {
     expect(await screen.findByRole("heading")).toHaveTextContent("Instances");
     const listItems = await screen.findAllByRole("listitem");
     expect(listItems).toHaveLength(2);
-
+    const linkElem = within(listItems[1]).getByRole("link");
+    expect(linkElem).toHaveAttribute('href', '/instancedetails/20');
   });
 
 });
