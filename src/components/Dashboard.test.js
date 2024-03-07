@@ -1,7 +1,8 @@
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter as Router } from "react-router-dom";
-import Dashboard from "./Dashboard";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { Router } from "react-router-dom";
 import '@testing-library/jest-dom';
+import { createMemoryHistory } from "history";
+import Dashboard from "./Dashboard";
 
 jest.mock("./ListInstances", () => {
   return {
@@ -13,8 +14,14 @@ jest.mock("./ListInstances", () => {
 });
 
 describe("Dashboard", () => {
+  let history;
+
+  beforeEach(() => {
+    history = createMemoryHistory();
+  });
+
   test("renders link and list instances", async () => {
-    render(<Router><Dashboard /></Router>);
+    render(<Router location={history.location} navigator={history}><Dashboard /></Router>);
 
     const headings = await screen.findAllByRole("heading")
     expect(headings).toHaveLength(2);
@@ -22,5 +29,14 @@ describe("Dashboard", () => {
     expect(headings[1]).toHaveTextContent("ListInstances Mock Component");
 
     expect(screen.getByRole("link")).toHaveAttribute("href", "/createinstance");
+  });
+
+  test("clicking link navigates to create instance", async () => {
+    render(<Router location={history.location} navigator={history}><Dashboard /></Router>);
+
+    const linkElem = await screen.findByRole("link");
+    fireEvent.click(linkElem);
+
+    expect(history.location.pathname).toBe("/createinstance");
   });
 });
