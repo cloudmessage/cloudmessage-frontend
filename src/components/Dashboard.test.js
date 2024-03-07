@@ -20,5 +20,7 @@ describe("Dashboard", () => {
     expect(headings).toHaveLength(2);
     expect(headings[0]).toHaveTextContent("CloudMessage Dashboard");
     expect(headings[1]).toHaveTextContent("ListInstances Mock Component");
+
+    expect(screen.getByRole("link")).toHaveAttribute("href", "/createinstance");
   });
 });
