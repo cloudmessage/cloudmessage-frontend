@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import * as auth0Lib from "@auth0/auth0-react";
 import App from './App';
 
 jest.mock("./components/login", () => {
@@ -65,24 +66,45 @@ jest.mock("./components/logout", () => {
   };
 });
 
-jest.mock("@auth0/auth0-react", () => {
-  return {
-    __esModule: true,
-    useAuth0: function() {
-      return {
-        isAuthenticated: false,
-        isLoading: false
-      }
-    }
-  };
-});
+jest.mock("@auth0/auth0-react");
+const mockedUseAuth0 = jest.spyOn(auth0Lib, "useAuth0");
 
-test('renders the main page', async () => {
-  render(<App />);
+describe("App", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-  const headings = await screen.findAllByRole("heading");
+  test('renders login button and Dashboard when isAuthenticated is false', async () => {
 
-  expect(headings).toHaveLength(2);
-  expect(headings[0]).toHaveTextContent("LoginButton Mock");
-  expect(headings[1]).toHaveTextContent("Dashboard Mock");
+    mockedUseAuth0.mockReturnValue({
+      isAuthenticated: false,
+      isLoading: false
+    });
+
+    render(<App />);
+
+    const headings = await screen.findAllByRole("heading");
+
+    expect(headings).toHaveLength(2);
+    expect(headings[0]).toHaveTextContent("LoginButton Mock");
+    expect(headings[1]).toHaveTextContent("Dashboard Mock");
+  });
+
+  test('renders logout button and Dashboard when isAuthentication is true', async () => {
+
+    mockedUseAuth0.mockReturnValue({
+      isAuthenticated: true,
+      isLoading: false
+    });
+
+    render(<App />);
+
+    const headings = await screen.findAllByRole("heading");
+
+    expect(headings).toHaveLength(4);
+    expect(headings[0]).toHaveTextContent("LogoutButton Mock");
+    expect(headings[1]).toHaveTextContent("Profile Information");
+    expect(headings[2]).toHaveTextContent("Profile Mock");
+    expect(headings[3]).toHaveTextContent("Dashboard Mock");
+  });
 });
